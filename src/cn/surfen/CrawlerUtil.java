@@ -24,12 +24,12 @@ import org.jsoup.select.Elements;
 public class CrawlerUtil {
 	private static Boolean isToday = true;// 判断是否为今天
 	private static List<House> houses = new ArrayList<House>();
-	//private static final String URL = "https://hz.lianjia.com/";
-	private static final String URL = "https://sh.lianjia.com/";
+	private static final String URL = "https://hz.lianjia.com/";
+	//private static final String URL = "https://sh.lianjia.com/";
 	
 	private static final String TIME = getDate();// 获取今天时间
-	//private static final String ROOT = "chengjiao/pg";// 根目录
-	private static final String ROOT = "chengjiao/pudong/d";// 根目录
+	private static final String ROOT = "chengjiao/pg";// 根目录
+	//private static final String ROOT = "chengjiao/pudong/d";// 根目录
 	private static int page = 1;// 分页
 
 	/**
