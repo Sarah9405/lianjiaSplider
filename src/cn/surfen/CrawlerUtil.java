@@ -24,9 +24,12 @@ import org.jsoup.select.Elements;
 public class CrawlerUtil {
 	private static Boolean isToday = true;// 判断是否为今天
 	private static List<House> houses = new ArrayList<House>();
-	private static final String URL = "https://hz.lianjia.com/";
+	//private static final String URL = "https://hz.lianjia.com/";
+	private static final String URL = "https://sh.lianjia.com/";
+	
 	private static final String TIME = getDate();// 获取今天时间
-	private static final String ROOT = "chengjiao/pg";// 根目录
+	//private static final String ROOT = "chengjiao/pg";// 根目录
+	private static final String ROOT = "chengjiao/pudong/d";// 根目录
 	private static int page = 1;// 分页
 
 	/**
@@ -40,7 +43,7 @@ public class CrawlerUtil {
 	 * 获取每日房产信息
 	 */
 	public static List<House> getHouse() {
-		while (page<=20) {
+		while (page<=2) {
 			String html = pickData(URL + ROOT + page);
 			System.out.println("当前网页为" + URL + ROOT + page);
 			toDealWith(html);
