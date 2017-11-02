@@ -22,14 +22,15 @@ import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
 public class CrawlerUtil {
+	private static final String anjuke="anjuke";
 	private static Boolean isToday = true;// 判断是否为今天
 	private static List<House> houses = new ArrayList<House>();
-	private static final String URL = "https://hz.lianjia.com/";
-	//private static final String URL = "https://sh.lianjia.com/";
+	//private static final String URL = "https://hz.lianjia.com/";
+	private static final String URL = "https://sh.lianjia.com/";
 	
 	private static final String TIME = getDate();// 获取今天时间
-	private static final String ROOT = "chengjiao/pg";// 根目录
-	//private static final String ROOT = "chengjiao/pudong/d";// 根目录
+	//private static final String ROOT = "chengjiao/pg";// 根目录
+	private static final String ROOT = "chengjiao/jiading/a3d";// 根目录
 	private static int page = 1;// 分页
 
 	/**
@@ -43,12 +44,12 @@ public class CrawlerUtil {
 	 * 获取每日房产信息
 	 */
 	public static List<House> getHouse() {
-		while (page<=2) {
+		while (page<=100) {
 			String html = pickData(URL + ROOT + page);
 			System.out.println("当前网页为" + URL + ROOT + page);
 			toDealWith(html);
 			page++;
-			System.out.println(page++);
+			System.out.println(page);
 			System.out.println("翻页");
 		}
 		System.out.println("查询完毕");
@@ -99,8 +100,8 @@ public class CrawlerUtil {
 	 */
 	private static void toDealWith(String html) {
 		Document document = Jsoup.parse(html);
-		Element elements = document.getElementsByClass("listContent").get(0);
-		System.out.println(document.getElementsByClass("listContent").get(0));
+		Element elements = document.getElementsByClass("cj-list").get(0).select("ul").first();
+		System.out.println(document.getElementsByClass("cj-list").get(0).select("ul").first());
 		// 获得子节点
 		Elements li = elements.children();
 
@@ -164,9 +165,9 @@ public class CrawlerUtil {
 	 * 获得成交价 挂牌价
 	 */
 	private static String getNumber(Element li) {
-		System.out.println(li.getElementsByClass("number").get(0).html()+"万");
-		System.out.println(li.getElementsByClass("dealCycleTxt").select("span").get(1).html());
-		return li.getElementsByClass("number").get(0).html()+"万 ,单价："+li.getElementsByClass("unitPrice").select("span").html()+"元/平 ,"+li.getElementsByClass("dealCycleTxt").select("span").get(1).html()+" ,"+li.getElementsByClass("dealCycleTxt").select("span").get(2).html();
+		System.out.println(li.getElementsByClass("strong-num").get(1).html()+"万");
+		System.out.println(li.getElementsByClass("price-item").get(2).text());
+		return li.getElementsByClass("strong-num").get(1).html()+"万 ,单价："+li.getElementsByClass("price-item").get(2).text();
 
 	}
 
@@ -206,16 +207,18 @@ public class CrawlerUtil {
 	 * 获得房子详情
 	 */
 	private static String getCommunity(Element li) {
-		System.out.println(li.getElementsByClass("title").select("a").html());
-		System.out.println(li.getElementsByClass("houseInfo").text());
-		return li.getElementsByClass("title").select("a").html()+",  房屋详情："+li.getElementsByClass("houseInfo").text()+", "+li.getElementsByClass("positionInfo").text();
+		System.out.println(li.getElementsByClass("link-hover-green").text());
+		System.out.println(li.getElementsByClass("row1-text").text());
+		System.out.println(li.getElementsByClass("row2-text").text());
+		System.out.println(li.getElementsByClass("property-tag-container").text());
+		return li.getElementsByClass("link-hover-green").text()+",  房屋详情："+li.getElementsByClass("row1-text").text()+", "+li.getElementsByClass("row2-text").text()+", "+li.getElementsByClass("property-tag-container").text();
 	}
 	
 	/**
 	 * 获得房子成交日期
 	 */
 	private static String getDealDate(Element li) {
-		System.out.println(li.getElementsByClass("dealDate").get(0).html());
-		return li.getElementsByClass("dealDate").get(0).html();
+		System.out.println(li.getElementsByClass("deal-item").get(1).html());
+		return li.getElementsByClass("deal-item").get(1).html();
 	}
 }

@@ -46,7 +46,7 @@ public class House {
 	
 	@Override
 	public String toString() {
-		return "小区信息: " + Community + " , 成交价格: " + information + ", 成交日期: "
+		return "小区信息: " + Community + " , 挂牌价格: " + information + ", 成交日期: "
 				+ date + "";
 	}
 
